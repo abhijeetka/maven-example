@@ -2,7 +2,7 @@
 echo -n "Detecting current project version number..."
 
 MAVEN_BIN=`which mvn`
-BRANCHNAME=$branchname
+BRANCHNAME=`master`
 echo "${MAVEN_BIN}"
 GIT_BIN=`which git`
 
