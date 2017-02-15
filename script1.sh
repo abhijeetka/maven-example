@@ -83,7 +83,7 @@ echo "New Version set $NEW_VERSION"
 # Creating new branch for Stable Version
 ADD=`${GIT_BIN} add -u .`
 COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_VERSION}"`
-PUSH=`${GIT_BIN} push origin ${branchname}:${NEW_VERSION}`
+PUSH=`${GIT_BIN} push abhi ${branchname}:${NEW_VERSION}`
 
 
 
