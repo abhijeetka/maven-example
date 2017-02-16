@@ -92,7 +92,7 @@ echo "commiting done"
 echo "pushing changes"
 PUSH=`${GIT_BIN} push -u abhi ${BRANCHNAME}:${NEW_VERSION}`
 
-exit 1;
+
 #Creating  dev version within the same branch
 #Creating  new version with same branch
 $MAVEN_BIN versions:set -DnewVersion=$NEW_DEV_VERSION
