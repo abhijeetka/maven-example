@@ -91,7 +91,7 @@ ADD=`${GIT_BIN} add -u .`
 COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_VERSION}"`
 echo "commiting done"
 echo "pushing changes"
-PUSH=`${GIT_BIN} push abhi ${NEW_VERSION}`
+PUSH=`${GIT_BIN} push -f abhi ${branchname}:${NEW_VERSION}`
 
 exit 1;
 #Creating  dev version within the same branch
