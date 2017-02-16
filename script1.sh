@@ -89,7 +89,7 @@ echo "New Version set $NEW_VERSION"
 # Creating new branch for Stable Version
 ADD=`${GIT_BIN} add -u .`
 COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_VERSION}"`
-PUSH=`${GIT_BIN} push origin ${branchname}:${NEW_VERSION}`
+PUSH=`${GIT_BIN} push abhi ${branchname}:${NEW_VERSION}`
 
 
 #Creating  dev version within the same branch
@@ -97,4 +97,4 @@ PUSH=`${GIT_BIN} push origin ${branchname}:${NEW_VERSION}`
 $MAVEN_BIN versions:set -DnewVersion=$NEW_DEV_VERSION
 ADD=`${GIT_BIN} add -u .`
 COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_DEV_VERSION}"`
-PUSH=`${GIT_BIN} push origin ${branchname}:${branchname}`
+PUSH=`${GIT_BIN} push abhi ${branchname}:${branchname}`
