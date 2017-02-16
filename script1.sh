@@ -2,7 +2,7 @@
 echo -n "Detecting current project version number..."
 
 MAVEN_BIN=`which mvn`
-BRANCHNAME=`master`
+BRANCHNAME=$branchname
 echo "${MAVEN_BIN}"
 GIT_BIN=`which git`
 
@@ -44,46 +44,42 @@ else
     echo "  Version found: [${CURRENT_VERSION}]"
 fi
 
-PREFIX=$(echo $CURRENT_VERSION | cut -d \- -s -f 1)
-MAJOR_VERSION=$(echo $CURRENT_VERSION | cut -d \- -s -f 2)
-SUFFIX=$(echo $CURRENT_VERSION | cut -d \- -s -f 3)
+#PREFIX=$(echo $CURRENT_VERSION | cut -d \- -s -f 1)
+MAJOR_VERSION=$(echo $CURRENT_VERSION | cut -d \- -s -f 1)
+SUFFIX=$(echo $CURRENT_VERSION | cut -d \- -s -f 2)
 
 CURRENT_BUILD_NUMBER=`echo ${MAJOR_VERSION} | sed -e 's/[0-9]*\.//g'`
 NEXT_BUILD_NUMBER=`expr ${CURRENT_BUILD_NUMBER} + 1`
 echo " Next build number:$NEXT_BUILD_NUMBER";
-echo "Current Version: $CURRENT_VERSION $PREFIX $MAJOR_VERSION $SUFFIX"
+echo "Current Version: $CURRENT_VERSION $MAJOR_VERSION $SUFFIX"
 echo "${CURRENT_VERSION}" | awk -F"-"  "{ print NF }"
 
 NUMBER_OF_FIELDS=`echo "${CURRENT_VERSION}" | awk -F"-"  "{ print NF }"`
-
 if [ "$NUMBER_OF_FIELDS" -ne "2" ] &&  [ "$NUMBER_OF_FIELDS" -ne "3" ]
   then
     exit 1
 else
     if [ "$SUFFIX" == "SNAPSHOT" ]
       then
-        export NEW_VERSION="${PREFIX}-${MAJOR_VERSION}-STABLE"
-	#Now we need to create a development version also.
-	#NEW_MAJOR_VERSION = `expr ${MAJOR_VERSION} + 1`
-	#NEW_DEV_VERSION =`${PREFIX}-${NEW_MAJOR_VERSION}-${SUFFIX}`
+        export NEW_VERSION="dev-${MAJOR_VERSION}-STABLE"
+        #Now we need to create a development version also.
+        #NEW_MAJOR_VERSION = `expr ${MAJOR_VERSION} + 1`
+        #NEW_DEV_VERSION =`${PREFIX}-${NEW_MAJOR_VERSION}-${SUFFIX}`
     else
-      if [ "$SUFFIX" == "STABLE" ]
-      then
-        export NEW_VERSION="${PREFIX}-${MAJOR_VERSION}-RELEASE"
-      else 
-        export NEW_VERSION="${PREFIX}-${MAJOR_VERSION}-${SUFFIX}"
-      fi
+       export NEW_VERSION="${MAJOR_VERSION}-${SUFFIX}"
     fi
 fi
 
 $MAVEN_BIN versions:set -DnewVersion=$NEW_VERSION
+#cd /vrex-spring-boot/
+#$MAVEN_BIN versions:set -DnewVersion=$NEW_VERSION
+#cd ..
 
 echo "New Version set $NEW_VERSION"
 
 # Creating new branch for Stable Version
 ADD=`${GIT_BIN} add -u .`
 COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_VERSION}"`
-PUSH=`${GIT_BIN} push abhi ${branchname}:${NEW_VERSION}`
-
+PUSH=`${GIT_BIN} push origin ${branchname}:${NEW_VERSION}`
 
 
