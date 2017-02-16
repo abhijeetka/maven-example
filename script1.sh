@@ -91,7 +91,7 @@ ADD=`${GIT_BIN} add -u .`
 COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_VERSION}"`
 echo "commiting done"
 echo "pushing changes"
-PUSH=`${GIT_BIN} push -f abhi ${branchname}:${NEW_VERSION}`
+PUSH=`${GIT_BIN} push -u abhi ${branchname}:${NEW_VERSION}`
 
 exit 1;
 #Creating  dev version within the same branch
@@ -99,4 +99,4 @@ exit 1;
 $MAVEN_BIN versions:set -DnewVersion=$NEW_DEV_VERSION
 ADD=`${GIT_BIN} add -u .`
 COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_DEV_VERSION}"`
-PUSH=`${GIT_BIN} push abhi ${branchname}:${branchname}`
+PUSH=`${GIT_BIN} push -u abhi ${branchname}:${branchname}`
