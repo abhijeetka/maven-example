@@ -4,7 +4,7 @@
 
 	<groupId>com.github.kevinsawicki</groupId>
 	<artifactId>github-maven-example</artifactId>
-	<version>dev-4.1.5-STABLE</version>
+	<version>dev-4.1.6-STABLE</version>
 	<name>GitHub Maven Plugin Example</name>
 	<description>Project to demonstrate GitHub Maven plugins</description>
 	<url>https://github.com/kevinsawicki/github-maven-example</url>
