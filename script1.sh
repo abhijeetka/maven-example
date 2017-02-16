@@ -2,10 +2,9 @@
 echo -n "Detecting current project version number..."
 
 MAVEN_BIN=`which mvn`
-BRANCHNAME=`git branch`
+BRANCHNAME="master"
 echo "${MAVEN_BIN}"
 GIT_BIN=`which git`
-echo $BRANCHNAME
 function validatePomExists() {
   CURRENT_DIRECTORY=`pwd`
   if [ -f pom.xml ] ; then
