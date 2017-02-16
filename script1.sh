@@ -64,12 +64,21 @@ else
         export NEW_VERSION="dev-${MAJOR_VERSION}-STABLE"
         #Now we need to create a development version also.
         #NEW_MAJOR_VERSION = `expr ${MAJOR_VERSION} + 1`
-        #NEW_DEV_VERSION =`${PREFIX}-${NEW_MAJOR_VERSION}-${SUFFIX}`
+	if [ -z ${NEXT_PROJECT_VERSION} ] ; then
+    		NEXT_PROJECT_VERSION=`echo ${MAJOR_VERSION} | sed -e "s/[0-9][0-9]*\([^0-9]*\)$/${NEXT_BUILD_NUMBER}/"`
+		echo "Next Project Version: ${NEXT_PROJECT_VERSION}"
+  	else
+  		echo "Version number was overridden on the command line. Using [${NEXT_PROJECT_VERSION}] to calculate next version."
+  		NEXT_PROJECT_VERSION="${NEXT_PROJECT_VERSION}"
+  	fi
+        export NEW_DEV_VERSION="${NEXT_PROJECT_VERSION}-${SUFFIX}"
     else
-       export NEW_VERSION="${MAJOR_VERSION}-${SUFFIX}"
+       export NEW_VERSION="${CURRENT_VERSION}"
     fi
 fi
 
+echo "New dev version: ${NEW_DEV_VERSION}";
+echo "New stable Version ${NEW_VERSION}"
 $MAVEN_BIN versions:set -DnewVersion=$NEW_VERSION
 #cd /vrex-spring-boot/
 #$MAVEN_BIN versions:set -DnewVersion=$NEW_VERSION
@@ -83,3 +92,9 @@ COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_VERSION}"`
 PUSH=`${GIT_BIN} push origin ${branchname}:${NEW_VERSION}`
 
 
+#Creating  dev version within the same branch
+#Creating  new version with same branch
+$MAVEN_BIN versions:set -DnewVersion=$NEW_DEV_VERSION
+ADD=`${GIT_BIN} add -u .`
+COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_DEV_VERSION}"`
+PUSH=`${GIT_BIN} push origin ${branchname}:${branchname}`
