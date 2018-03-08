@@ -4,7 +4,7 @@
 
 	<groupId>com.github.kevinsawicki</groupId>
 	<artifactId>github-maven-example</artifactId>
-	<version>5.1.7-SNAPSHOT</version>
+	<version>5.1.8-SNAPSHOT</version>
 	<name>GitHub Maven Plugin Example</name>
 	<description>Project to demonstrate GitHub Maven plugins</description>
 	<url>https://github.com/kevinsawicki/github-maven-example</url>
