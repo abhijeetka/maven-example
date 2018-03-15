@@ -99,3 +99,4 @@ $MAVEN_BIN versions:set -DnewVersion=$NEW_DEV_VERSION
 ADD=`${GIT_BIN} add -u .`
 COMMIT=`${GIT_BIN} commit -a -m "updated pom version to ${NEW_DEV_VERSION}"`
 PUSH=`${GIT_BIN} push -u abhi ${BRANCHNAME}:${BRANCHNAME}`
+echo "hello added'
